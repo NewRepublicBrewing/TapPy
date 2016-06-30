@@ -19,8 +19,8 @@ f = urllib2.urlopen('http://api.wunderground.com/api/'+tappy_settings.wundergrou
 json_string = f.read()
 parsed_json = json.loads(json_string)
 for forecast in (parsed_json['forecast']['simpleforecast']['forecastday']):
-	if (forecast['conditions'] != 'Clear') & (forecast['conditions'] != 'Partly Cloudy'):
-		print(forecast['conditions'])
+	#if (forecast['conditions'] != 'Clear') & (forecast['conditions'] != 'Partly Cloudy'):
+	#	print(forecast['conditions'])
 	if (forecast['date']['day'] == day) & (forecast['date']['month'] == month) & (forecast['date']['year'] == year):
 		mean_humidity = (forecast['avehumidity'])
 		period = forecast['period']
