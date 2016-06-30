@@ -29,7 +29,7 @@ def send_message(channel_id, message):
 		channel=channel_id,
 		text=message,
 		username='TapPy',
-		icon_emoji=':unicorn_face:'
+		icon_url='/static/tappy_40.png'
 	)
 
 @app.route('/slack', methods=['POST'])
