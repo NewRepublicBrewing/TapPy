@@ -108,6 +108,10 @@ def predict_by_weekday(day_name):
 	test_day['band'] = 1
 	#currently assuming there will not be a special event
 	test_day['brewery_events'] = 0
+	#currently assuming there will be a food truck
+	test_day['any_truck'] = 1
+	#currently assuming there will not be a football game
+	test_day['football_games'] = 0
 	
 	sql_query = """
 		SELECT * FROM daily_summary;
@@ -134,7 +138,8 @@ def predict_by_weekday(day_name):
 
 	#features = ['is_friday', 'no_adverse_weather_event', 'thunderstorm_event', 'days_since_open', 'brewery_events', 'days_since_school_year_start', 'any_truck', 'band', 'daily_prior', 'football_home_away', 'in_april', 'in_2016']
 	#features = ['is_friday', 'is_saturday', 'week_of_year', 'mean_humidity', 'precipitation', 'mtd_precipitation', 'mean_temp_deviation_from_75', 'max_temp_deviation_from_75', 'heat_index', 'dew_point_high', 'fog_event', 'no_adverse_weather_event', 'rain_event', 'thunderstorm_event', 'in_school', 'days_since_open', 'brewery_events', 'days_since_school_year_start', 'any_truck', 'band', 'band_fans', 'special_event', 'daily_prior', 'yearly_prior', 'yesterday_prior', 'all_sports_games', 'all_sports_home_away', 'football_games', 'football_home_away', 'baseball_games', 'baseball_home_away', 'mens_basketball_games', 'mens_basketball_home_away', 'first_friday', 'in_february', 'in_march', 'in_april', 'in_may', 'in_june', 'in_july', 'in_august', 'in_september', 'in_october', 'in_november', 'in_december', 'in_2013', 'in_2014', 'in_2015', 'in_2016', ]
-	features = ['is_friday', 'no_adverse_weather_event', 'thunderstorm_event', 'in_school', 'days_since_open', 'brewery_events', 'band', 'daily_prior', 'yearly_prior', 'in_april', 'in_2016', ]
+	#features = ['is_friday', 'no_adverse_weather_event', 'thunderstorm_event', 'in_school', 'days_since_open', 'brewery_events', 'band', 'daily_prior', 'yearly_prior', 'in_april', 'in_2016', ]
+	features = ['is_friday', 'no_adverse_weather_event', 'thunderstorm_event', 'in_school', 'days_since_open', 'brewery_events', 'days_since_school_year_start', 'any_truck', 'band', 'daily_prior', 'yearly_prior', 'football_games', 'in_april', 'in_2016', ]
 
 	
 
@@ -149,5 +154,5 @@ def predict_by_weekday(day_name):
 	#print(np.array(test_day_list).reshape(1, -1))
 	return (upcoming_day, round(tomorrow_pred[0]*(maxes['daily_subtotal'])[0],2))
 
-#print(predict_by_weekday('friday'))
-#print(predict_by_weekday('saturday'))
+print(predict_by_weekday('friday'))
+print(predict_by_weekday('saturday'))

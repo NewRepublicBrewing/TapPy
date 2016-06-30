@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, Response
+from flask import Flask, request, Response, render_template
 from slackclient import SlackClient
 import random
 from make_prediction import predict_by_weekday
@@ -28,7 +28,7 @@ def send_message(channel_id, message):
 		"chat.postMessage",
 		channel=channel_id,
 		text=message,
-		username='Project-Delta-Night',
+		username='TapPy',
 		icon_emoji=':unicorn_face:'
 	)
 
@@ -43,24 +43,37 @@ def inbound():
 		inbound_message = username + " in " + channel + " says: " + text
 		print(inbound_message)
 		channel_id = request.form.get('channel_id')
+		th_string = 'th'
 		if text == 'ping':
-			message = "Pong"
+			message = "Pong "+channel_id
 			message = '-Input command: "'+text+'" by '+username+'-'+'\n'+message
 			send_message(channel_id, message)
 		elif text.lower() == 'friday':
 			date, value = predict_by_weekday(text.lower())
 			number_of_bartenders = 1
-			if value > 600:
+			if value > 575:
 				number_of_bartenders = 2
-			message = "For this "+date.strftime("%A")+", "+date.strftime("%B")+" "+str(date.day)+"th "+str(date.year)+", I predict we will do $"+str(value)+" in tap room sales.  Therefore I recommend scheduling "+str(number_of_bartenders)+" bartender(s)."
+			if date.day == 1:
+				th_string = 'st'
+			if date.day == 2:
+				th_string = 'nd'
+			if date.day == 3:
+				th_string = 'rd'
+			message = "For this "+date.strftime("%A")+", "+date.strftime("%B")+" "+str(date.day)+th_string+" "+str(date.year)+", I predict we will do $"+str(value)+" in tap room sales.  Therefore I recommend scheduling "+str(number_of_bartenders)+" bartender(s)."
 			message = '-Input command: "'+text+'" by '+username+'-'+'\n'+message
 			send_message(channel_id, message)
 		elif text.lower() == 'saturday':
 			date, value = predict_by_weekday(text.lower())
 			number_of_bartenders = 1
-			if value > 600:
+			if value > 575:
 				number_of_bartenders = 2
-			message = "For this "+date.strftime("%A")+", "+date.strftime("%B")+" "+str(date.day)+"th "+str(date.year)+", I predict we will do $"+str(value)+" in tap room sales.  Therefore I recommend scheduling "+str(number_of_bartenders)+" bartender(s)."
+			if date.day == 1:
+				th_string = 'st'
+			if date.day == 2:
+				th_string = 'nd'
+			if date.day == 3:
+				th_string = 'rd'
+			message = "For this "+date.strftime("%A")+", "+date.strftime("%B")+" "+str(date.day)+th_string+" "+str(date.year)+", I predict we will do $"+str(value)+" in tap room sales.  Therefore I recommend scheduling "+str(number_of_bartenders)+" bartender(s)."
 			message = '-Input command: "'+text+'" by '+username+'-'+'\n'+message
 			send_message(channel_id, message)
 		elif text.lower() == 'can we fuck sheep?':
@@ -82,7 +95,7 @@ def inbound():
 
 @app.route('/', methods=['GET'])
 def test():
-	return Response('It works!')
+	return render_template('index.html')
 
 if __name__ == "__main__":
 	app.run(debug=True)

@@ -1,4 +1,4 @@
-['is_friday', 'no_adverse_weather_event', 'thunderstorm_event', 'in_school', 'days_since_open', 'brewery_events', 'band', 'daily_prior', 'yearly_prior', 'in_april', 'in_2016', ]
-RMS: 169.109547034
-Percent better within $100: 97.1
-Percent of predictions consistent with actually needed number of bartenders: 82.13
+['is_friday', 'no_adverse_weather_event', 'thunderstorm_event', 'in_school', 'days_since_open', 'brewery_events', 'days_since_school_year_start', 'any_truck', 'band', 'daily_prior', 'yearly_prior', 'football_games', 'in_april', 'in_2016', ]
+RMS: 176.432547765
+Percent better within $100: 43.4
+Percent of predictions consistent with actually needed number of bartenders: 79.72
