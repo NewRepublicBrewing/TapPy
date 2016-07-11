@@ -59,7 +59,7 @@ def inbound():
 				th_string = 'nd'
 			if date.day == 3:
 				th_string = 'rd'
-			message = "For this "+date.strftime("%A")+", "+date.strftime("%B")+" "+str(date.day)+th_string+" "+str(date.year)+", I predict we will do $"+str(value)+" in taproom sales.  Therefore I recommend scheduling "+str(number_of_bartenders)+" bartender(s)."
+			message = "For this *"+date.strftime("%A")+", "+date.strftime("%B")+" "+str(date.day)+th_string+" "+str(date.year)+"*, I predict we will do *$"+str(value)+"* in taproom sales.  Therefore I recommend scheduling *"+str(number_of_bartenders)+" bartender(s)*."
 			message = '-Input command: "'+text+'" by '+username+'-'+'\n'+message
 			send_message(channel_id, message)
 		elif text.lower() == 'saturday':
@@ -73,7 +73,7 @@ def inbound():
 				th_string = 'nd'
 			if date.day == 3:
 				th_string = 'rd'
-			message = "For this "+date.strftime("%A")+", "+date.strftime("%B")+" "+str(date.day)+th_string+" "+str(date.year)+", I predict we will do $"+str(value)+" in taproom sales.  Therefore I recommend scheduling "+str(number_of_bartenders)+" bartender(s)."
+			message = "For this *"+date.strftime("%A")+", "+date.strftime("%B")+" "+str(date.day)+th_string+" "+str(date.year)+"*, I predict we will do *$"+str(value)+"* in taproom sales.  Therefore I recommend scheduling *"+str(number_of_bartenders)+" bartender(s)*."
 			message = '-Input command: "'+text+'" by '+username+'-'+'\n'+message
 			send_message(channel_id, message)
 		elif text.lower() == 'can we fuck sheep?':

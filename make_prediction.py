@@ -34,9 +34,11 @@ def predict_by_weekday(day_name):
 		day_number = 5
 	#given todays date, find the datekey for the upcoming friday and saturday
 	day_of_week_today = (datetime.datetime.today().weekday())
+	if day_of_week_today == 6:
+		day_of_week_today = -1
 	days_until = day_number-day_of_week_today
 	upcoming_day = ((datetime.date.today() + datetime.timedelta(days=days_until)))
-	week_of_year_today = datetime.datetime.today().isocalendar()[1]
+	week_of_year_today = upcoming_day.isocalendar()[1]
 
 	day = upcoming_day.day
 	month = upcoming_day.month
@@ -84,11 +86,16 @@ def predict_by_weekday(day_name):
 	f = urllib2.urlopen('http://api.wunderground.com/api/'+tappy_settings.wunderground_key+'/forecast10day/q/TX/College_Station.json')
 	json_string = f.read()
 	parsed_json = json.loads(json_string)
+	#print(parsed_json)
+	#print(day)
+	#print(month)
+	#print(year)
 	for forecast in (parsed_json['forecast']['simpleforecast']['forecastday']):
 		if (forecast['date']['day'] == day) & (forecast['date']['month'] == month) & (forecast['date']['year'] == year):
 			test_day['min_temp'] = int(forecast['low']['fahrenheit'])
 			test_day['max_temp'] = int(forecast['high']['fahrenheit'])
 			test_day['mean_temp'] = (test_day['min_temp']+test_day['max_temp'])/2
+			#print(test_day['mean_temp'])
 			test_day['mean_humidity'] = (forecast['avehumidity'])
 			test_day['no_adverse_weather_event'] = 1
 			if (forecast['conditions'] != 'Clear') & (forecast['conditions'] != 'Partly Cloudy'):
@@ -118,6 +125,7 @@ def predict_by_weekday(day_name):
 		"""
 	daily_df = pd.read_sql_query(sql_query,tappy_sql_connection.conn)
 	day_array = np.array([])
+	#print(test_day['day_of_week'])
 	for prior_index, row in daily_df.iterrows():
 		if row['week_of_year'] == test_day['week_of_year']:
 			if row['day_of_week'] == test_day['day_of_week']:
